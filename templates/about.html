@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>about</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        header {
+            color: white;
+            padding: 20px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: bolder;
+            margin-left: 40%;
+            text-decoration: 4px underline white;
+        }
+        
+        .team-photo img {
+            width: 80%;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+        }
+        
+        .footer1 {
+            background-color: #ffffff;
+            color: #000000;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            font-family: "Arial", sans-serif;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        .team-info {
+            background: #fff;
+            padding: 20px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-members {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px auto;
+            width: 90%;
+        }
+        
+        .member {
+            background: white;
+            padding: 15px;
+            width: 220px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .member:hover {
+            transform: scale(1.05);
+        }
+        
+        .member img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        
+        h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        p {
+            color: #777;
+        }
+        
+        .cont {
+            margin-top: 10%;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="bubbles"></div>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-spider"></i> SocialSpyder.ai
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/subscribe">Subscribe</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("navMenu");
+            const hamburger = document.querySelector(".hamburger");
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove("active");
+            }
+        });
+    </script>
+    <div class="cont">
+        <header>
+            <h1>Meet Our Team</h1>
+        </header>
+
+        <section class="team-photo">
+            <img src="team-photo.jpg" alt="Team Group Photo">
+        </section>
+
+        <section class="team-info">
+            <h2>Our Mission</h2>
+            <p>We are a passionate team working on social media fake detection using AI & ML.</p>
+        </section>
+
+        <section class="team-members">
+            <div class="member">
+                <img src="dp.jpg" alt="Yadlapalli Durgaprasad">
+                <h3>Yadlapalli Durgaprasad</h3>
+                <p>Team Lead</p>
+            </div>
+
+            <div class="member">
+                <img src="khalid.jpg" alt="Mohammadh Khalid Zaid">
+                <h3>Mohammed Khalid Zaid</h3>
+                <p>Team Member</p>
+            </div>
+
+            <div class="member">
+                <img src="paul.jpg" alt="Y Paul">
+                <h3>Y Paul</h3>
+                <p>Team Member</p>
+            </div>
+
+            <div class="member">
+                <img src="pavan.jpg" alt="M Pavan Kumar">
+                <h3>M Pawan Kumar</h3>
+                <p>Team Member</p>
+            </div>
+
+        </section>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bubbleContainer = document.querySelector(".bubbles");
+            for (let i = 0; i < 25; i++) {
+                let bubble = document.createElement("span");
+                bubble.classList.add("bubble");
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                bubble.style.setProperty("--i", i);
+                bubbleContainer.appendChild(bubble);
+            }
+        });
+    </script>
+    <script>
+        window.addEventListener("scroll", () => {
+            document.querySelectorAll(".bubbles span").forEach((bubble) => {
+                let scrollY = window.scrollY;
+                bubble.style.transform = `translateY(${100 + scrollY}px)`;
+            });
+        });
+    </script>
+    <footer class="footer1">
+        &copy; 2025 SocialSpyder.ai | All Rights Reserved
+    </footer>
+
+</body>
+
+</html>

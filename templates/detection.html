@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Detection</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .chat-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 450px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-top: auto;
+            /* Remove margin-bottom: auto; */
+        }
+        
+        .chat-box {
+            display: flex;
+            flex-direction: column;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-bottom: 10px;
+            scroll-behavior: smooth;
+        }
+        
+        .message {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px;
+            border-radius: 10px;
+            margin: 5px 0;
+            max-width: 80%;
+        }
+        
+        .bot {
+            align-self: flex-start;
+            background-color: #29a92d4b;
+            color: white 1;
+            font-size: large;
+            font-weight: bold;
+        }
+        
+        .user {
+            align-self: flex-end;
+            background-color: #555;
+            color: white;
+        }
+        
+        .typing {
+            font-style: italic;
+            color: #bbb;
+        }
+        
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 10px;
+        }
+        
+        #input-box {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background: transparent;
+            color: white;
+            outline: none;
+        }
+        
+        .icons i {
+            color: #29a92dd4;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            display: none;
+        }
+        
+        .genuine {
+            background-color: rgba(0, 255, 0, 0.2);
+            color: #0f0;
+        }
+        
+        .fake {
+            background-color: rgba(255, 0, 0, 0.2);
+            color: #f00;
+        }
+        
+        .instruction-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 14px;
+            color: #ddd;
+            font-weight: 500;
+            box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+        }
+        
+        .instruction-box h3 {
+            font-size: 18px;
+            color: #29a92dd4;
+            margin-bottom: 5px;
+        }
+        
+        .footer1 {
+            background-color: #ffffff;
+            color: #000000;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            font-family: "Arial", sans-serif;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .chat-container {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bubbles"></div>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-spider"></i> SocialSpyder.ai
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/subscribe">Subscribe</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("navMenu");
+            const hamburger = document.querySelector(".hamburger");
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove("active");
+            }
+        });
+    </script>
+    <div class="chat-container">
+        <div class="instruction-box">
+            <h3>How to Use?</h3>
+            <p>📝 Enter your details step by step.</p>
+            <p>🤖 Our AI will analyze and predict the authenticity of your profile.</p>
+            <p>🔍 Get instant results with a clear confidence score.</p>
+            <p>🚀 Start by entering your <strong>Full Name</strong> below!</p>
+        </div>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="input-box" placeholder="Type your response...">
+            <div class="icons">
+                <i class="fa-solid fa-paper-plane" onclick="sendMessage()"></i>
+            </div>
+        </div>
+    </div>
+    <div id="result-box" class="result-box"></div>
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const inputBox = document.getElementById("input-box");
+        const resultBox = document.getElementById("result-box");
+        const questions = [
+            "Enter your full name...",
+            "Enter statuses count...",
+            "Enter followers count...",
+            "Enter friends count...",
+            "Enter favorites count...",
+            "Enter listed count...",
+            "Select language (en/es/fr/de/it)"
+        ];
+        let answers = [];
+        let questionIndex = 0;
+
+        function showMessage(text, sender) {
+            const message = document.createElement("div");
+            message.classList.add("message", sender);
+            message.innerText = text;
+            chatBox.appendChild(message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function showTypingAnimation() {
+            const typing = document.createElement("div");
+            typing.classList.add("message", "bot", "typing");
+            typing.innerText = "Typing...";
+            chatBox.appendChild(typing);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return typing;
+        }
+
+        function askNextQuestion() {
+            if (questionIndex < questions.length) {
+                const typing = showTypingAnimation();
+                setTimeout(() => {
+                    typing.remove();
+                    showMessage(questions[questionIndex], "bot");
+                    inputBox.disabled = false;
+                    inputBox.focus();
+                }, 1000);
+            } else {
+                processForm();
+            }
+        }
+
+        function sendMessage() {
+            if (inputBox.value.trim() !== "") {
+                showMessage(inputBox.value, "user");
+                answers.push(inputBox.value.trim());
+                inputBox.value = "";
+                inputBox.disabled = true;
+                questionIndex++;
+                setTimeout(askNextQuestion, 1000);
+            }
+        }
+        inputBox.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+
+        function processForm() {
+            fetch("/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: answers[0],
+                        statuses_count: answers[1],
+                        followers_count: answers[2],
+                        friends_count: answers[3],
+                        favourites_count: answers[4],
+                        listed_count: answers[5],
+                        lang: answers[6]
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    resultBox.style.display = "block";
+                    resultBox.innerHTML = result.prediction === "Genuine" ?
+                        `<i class='fa-solid fa-check-circle'></i> Genuine Profile - ${result.probability.toFixed(2)}%` :
+                        `<i class='fa-solid fa-times-circle'></i> Fake Profile - ${result.probability.toFixed(2)}%`;
+                    resultBox.className = result.prediction === "Genuine" ? "result-box genuine" : "result-box fake";
+                });
+        }
+        askNextQuestion();
+    </script>
+    <footer class="footer1">
+        &copy; 2025 SocialSpyder.ai | All Rights Reserved
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bubbleContainer = document.querySelector(".bubbles");
+            for (let i = 0; i < 25; i++) {
+                let bubble = document.createElement("span");
+                bubble.classList.add("bubble");
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                bubble.style.setProperty("--i", i);
+                bubbleContainer.appendChild(bubble);
+            }
+        });
+    </script>
+</body>
+
+</html>

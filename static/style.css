@@ -1,0 +1,369 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+
+/* Background Spider Icon */
+
+body::before {
+    content: "\f717";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 600;
+    font-size: 50vw;
+    color: #15621776;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+}
+
+.hero-section {
+    text-align: center;
+    padding: 80px 20px;
+    color: white;
+    border-radius: 15px;
+    margin: 30px auto;
+    width: 80%;
+    backdrop-filter: blur(10px);
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.try-button {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+    background: #29a92dd4;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.try-button:hover {
+    background: #29a92dd4;
+}
+
+
+/* Floating Navbar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+
+/* Logo Styling */
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: rgb(246, 244, 244);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 28px;
+    color: #f5eeee;
+}
+
+
+/* Navbar Links */
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    background-color: rgba(239, 233, 233, 0.652);
+    color: black;
+}
+
+
+/* Mobile Navbar */
+
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        width: 200px;
+        text-align: center;
+        padding: 15px 0;
+    }
+    .nav-links.active {
+        display: flex;
+    }
+    .nav-links li {
+        margin: 10px 0;
+    }
+}
+
+
+/* Bubble Animation */
+
+.bubbles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200vh;
+    /* Make it twice the screen height */
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bubbles span {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    animation: moveBubbles linear infinite;
+    opacity: 0.5;
+}
+
+.bubbles span:nth-child(odd) {
+    width: 15px;
+    height: 15px;
+    animation-duration: 8s;
+    animation-delay: calc(-1s * var(--i));
+}
+
+.bubbles span:nth-child(even) {
+    width: 25px;
+    height: 25px;
+    animation-duration: 12s;
+    animation-delay: calc(-2s * var(--i));
+}
+
+@keyframes moveBubbles {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0.8);
+    }
+    50% {
+        transform: translateY(50vh) translateX(30px) scale(1.2);
+    }
+    100% {
+        transform: translateY(-10vh) translateX(-30px) scale(0.8);
+    }
+}
+
+
+/* Alternating Content Layout */
+
+
+/* Add margin to push content down */
+
+.content {
+    margin-top: 80px;
+    /* Adjust based on your navbar height */
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 100px;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
+
+.left img,
+.right img {
+    width: 350px;
+    border-radius: 12px;
+}
+
+.left,
+.right {
+    flex: 1;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideIn 1s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h2 {
+    color: #29a92dd4;
+    font-size: 28px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #CBCBCB;
+    font-weight: bold;
+}
+
+.footer {
+    background-color: #121212;
+    /* Sleek Dark Theme */
+    color: #ffffff;
+    text-align: center;
+    padding: 25px 15px;
+    font-size: 14px;
+    font-family: "Arial", sans-serif;
+    border-top: 3px solid #29a92dd4;
+    /* Accent color */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer h2 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #29a92dd4;
+    /* Highlight Brand Name */
+}
+
+.footer p {
+    margin: 8px 0;
+    opacity: 0.8;
+}
+
+.footer-links {
+    margin: 15px 0;
+}
+
+.footer-links a {
+    color: #29a92dd4;
+    text-decoration: none;
+    margin: 0 12px;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-links a:hover {
+    color: #29a92dd4;
+    text-decoration: underline;
+}
+
+.footer-socials {
+    margin: 15px 0;
+}
+
+.footer-socials a {
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0 10px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: #ff4500;
+    transform: scale(1.2);
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .footer {
+        font-size: 12px;
+        padding: 20px;
+    }
+    .footer-links a {
+        display: block;
+        margin: 5px 0;
+    }
+    .footer-socials a {
+        font-size: 16px;
+        margin: 5px;
+    }
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .left img,
+    .right img {
+        width: 250px;
+    }
+}

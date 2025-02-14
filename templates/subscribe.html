@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #111;
+            color: white;
+        }
+        
+        .footer1 {
+            background-color: #222;
+            color: #ddd;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+        
+        .subscription-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 10% auto 80px;
+            padding: 20px;
+            max-width: 90%;
+        }
+        
+        .plan {
+            background: #222;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            width: 90%;
+            max-width: 300px;
+            transition: transform 0.3s;
+        }
+        
+        .plan:hover {
+            transform: scale(1.05);
+        }
+        
+        .plan h2 {
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            margin: 10px 0;
+        }
+        
+        .subscribe-btn {
+            background: #4CAF50;
+            border: none;
+            padding: 10px;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .subscribe-btn:hover {
+            background: #45a049;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #111;
+            color: white;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .subscription-container {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 28%;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bubbles"></div>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-spider"></i> SocialSpyder.ai
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/subscribe">Subscribe</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("navMenu");
+            const hamburger = document.querySelector(".hamburger");
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove("active");
+            }
+        });
+    </script>
+    <div class="subscription-container">
+        <div class="plan">
+            <h2>Free Plan</h2>
+            <p class="price">$0/month</p>
+            <ul class="features">
+                <li><i class="fa fa-check"></i> Limited Access</li>
+                <li><i class="fa fa-check"></i> Basic Features</li>
+            </ul>
+            <button class="subscribe-btn">Get Started</button>
+        </div>
+        <div class="plan">
+            <h2>Pro Plan</h2>
+            <p class="price">$10/month</p>
+            <ul class="features">
+                <li><i class="fa fa-check"></i> Unlimited Access</li>
+                <li><i class="fa fa-check"></i> Premium Features</li>
+                <li><i class="fa fa-check"></i> Priority Support</li>
+            </ul>
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+        <div class="plan">
+            <h2>Enterprise</h2>
+            <p class="price">$30/month</p>
+            <ul class="features">
+                <li><i class="fa fa-check"></i> All Pro Features</li>
+                <li><i class="fa fa-check"></i> Custom Integrations</li>
+                <li><i class="fa fa-check"></i> Dedicated Support</li>
+            </ul>
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bubbleContainer = document.querySelector(".bubbles");
+            for (let i = 0; i < 25; i++) {
+                let bubble = document.createElement("span");
+                bubble.classList.add("bubble");
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                bubble.style.setProperty("--i", i);
+                bubbleContainer.appendChild(bubble);
+            }
+        });
+    </script>
+    <script>
+        window.addEventListener("scroll", () => {
+            document.querySelectorAll(".bubbles span").forEach((bubble) => {
+                let scrollY = window.scrollY;
+                bubble.style.transform = `translateY(${100 + scrollY}px)`;
+            });
+        });
+    </script>
+    <footer class="footer1">
+        &copy; 2025 SocialSpyder.ai | All Rights Reserved
+    </footer>
+</body>
+
+</html>

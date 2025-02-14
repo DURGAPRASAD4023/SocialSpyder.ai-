@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialSpyder.ai</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="bubbles"></div>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-spider"></i> SocialSpyder.ai
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navMenu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/subscribe">Subscribe</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("navMenu").classList.toggle("active");
+        }
+
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("navMenu");
+            const hamburger = document.querySelector(".hamburger");
+            if (!menu.contains(event.target) && !hamburger.contains(event.target)) {
+                menu.classList.remove("active");
+            }
+        });
+    </script>
+    <div class="hero-section">
+        <h1>Spot Fake Profiles Instantly</h1>
+        <p>Empower yourself with AI-driven fake profile detection. Stay safe, stay ahead.</p>
+        <a href="/detect" class="try-button">Try SocialSpyder.ai....</a>
+
+        <!-- Add bubble animation -->
+    </div>
+
+    <section class="content">
+
+        <div class="container fade-in-left">
+            <div class="left">
+                <img src="static/fpimage1.jpg" alt="Detection">
+            </div>
+            <div class="right">
+                <h2> New Investment Scam Leverages AI</h2>
+                <p> A sophisticated investment scam called "Nomani" is using AI-generated deepfake videos of celebrities and public figures to promote fraudulent investment opportunities on social media. Scammers create fake ads and profiles, often targeting
+                    people who have previously been scammed, promising to help them recover their lost money. </p>
+            </div>
+        </div>
+
+        <div class="container fade-in-right">
+            <div class="right">
+                <h2>Deepfakes to social media</h2>
+                <p>With the rise in online shopping, scammers are increasingly using social media platforms to promote fake online stores and fraudulent ads. These ads often feature heavily discounted products or celebrity endorsements, luring unsuspecting
+                    shoppers.
+                </p>
+            </div>
+            <div class="left">
+                <img src="static/fpimage2.jpg" alt="AI Analysis">
+            </div>
+        </div>
+        <div class="container fade-in-left">
+            <div class="left">
+                <img src="static/fpimage3.png" alt="Subscription">
+            </div>
+            <div class="right">
+                <h2>Social media scams</h2>
+                <p>Romance scams continue to be a significant issue on social media platforms. Scammers create fake profiles on dating apps and social media, often using stolen photos and fabricated identities. They build relationships with their victims,
+                    sometimes over months or even years, before manipulating them into sending money.</p>
+            </div>
+
+            <!-- Add bubble animation -->
+        </div>
+
+
+
+    </section>
+
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <h2>SocialSpyder.ai</h2>
+            <p>Empowering AI-driven social media insights for the future.</p>
+
+            <div class="footer-links">
+                <a href="#">About Us</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-socials">
+                <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+
+            <p>&copy; 2025 SocialSpyder.ai. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- FontAwesome for Icons -->
+    <script src="https://kit.fontawesome.com/YOUR_FONT_AWESOME_KIT.js" crossorigin="anonymous"></script>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const bubbleContainer = document.querySelector(".bubbles");
+            for (let i = 0; i < 25; i++) {
+                let bubble = document.createElement("span");
+                bubble.classList.add("bubble");
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                bubble.style.setProperty("--i", i);
+                bubbleContainer.appendChild(bubble);
+            }
+        });
+    </script>
+    <script>
+        window.addEventListener("scroll", () => {
+            document.querySelectorAll(".bubbles span").forEach((bubble) => {
+                let scrollY = window.scrollY;
+                bubble.style.transform = `translateY(${100 + scrollY}px)`;
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
